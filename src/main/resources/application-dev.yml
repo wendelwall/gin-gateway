@@ -1,0 +1,60 @@
+server:
+  port: 9000
+spring:
+  redis:
+    host: localhost
+    password: sqlzyydxe
+    database: 0
+    port: 6379
+  rabbitmq:
+    host: 116.62.28.180
+    port: 5672
+    username: anyi
+    password: QmA17YugOQq
+
+  cloud:
+    gateway:
+      routes:
+      - id: api-route
+        # lb代表从注册中心获取服务
+        uri: lb://api-service
+        predicates:
+        # 转发该路径
+        - Path=/api/**
+#        filters:
+#        # 是否去掉前缀（第一个目录）
+#        - StripPrefix=1
+      - id: h5-route
+        # lb代表从注册中心获取服务
+        uri: lb://h5-service
+        predicates:
+        # 转发该路径
+        - Path=/h5/**
+
+# eurker
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}:${random.value}
+  client:
+    enabled: false
+    service-url:
+      defaultZone: http://admin:password@localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+# LOGGING
+logging:
+  level:
+    root: INFO
+#    org.springframework.security: DEBUG
+#    org.springframework.cloud.netflix: INFO
+#    com.netflix.zuul: INFO
+    com.riskeys: DEBUG
+
+#开启actuator管理api，后面要关闭
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
