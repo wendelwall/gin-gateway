@@ -6,11 +6,6 @@ spring:
     password: sqlzyydxe
     database: 0
     port: 6379
-#  rabbitmq:
-#    host: 116.62.28.180
-#    port: 5672
-#    username: anyi
-#    password: QmA17YugOQq
   kafka:
     # kafka服务器地址(可以多个)
     bootstrap-servers: 127.0.0.1:9092
