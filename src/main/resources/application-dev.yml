@@ -6,11 +6,25 @@ spring:
     password: sqlzyydxe
     database: 0
     port: 6379
-  rabbitmq:
-    host: 116.62.28.180
-    port: 5672
-    username: anyi
-    password: QmA17YugOQq
+#  rabbitmq:
+#    host: 116.62.28.180
+#    port: 5672
+#    username: anyi
+#    password: QmA17YugOQq
+  kafka:
+    # kafka服务器地址(可以多个)
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      # 指定一个默认的组名
+      group-id: kafka2
+      # earliest:当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
+      # latest:当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据
+      # none:topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常
+      auto-offset-reset: earliest
+      # key/value的反序列化
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 
   cloud:
     gateway:
@@ -37,9 +51,9 @@ eureka:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}:${random.value}
   client:
-    enabled: false
+    enabled: true
     service-url:
-      defaultZone: http://admin:password@localhost:8761/eureka/
+      defaultZone: http://user:password@localhost:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
 

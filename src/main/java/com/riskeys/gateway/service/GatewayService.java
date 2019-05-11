@@ -31,8 +31,11 @@ import java.util.Map;
 @Slf4j
 //@Service
 public class GatewayService implements ApplicationEventPublisherAware, CommandLineRunner {
+//    @Autowired
+//    private RedisRouteDefinitionRepository routeDefinitionWriter;
     @Autowired
     private RedisRouteDefinitionRepository routeDefinitionWriter;
+
     private ApplicationEventPublisher publisher;
 
     //这里替换成你的路由service
@@ -41,7 +44,6 @@ public class GatewayService implements ApplicationEventPublisherAware, CommandLi
 
 
     public String save() {
-
         //从数据库拿到路由配置
         List<GatewayRoute> gatewayRouteList = gatewayRouteBiz.selectListAll();
 
